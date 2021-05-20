@@ -54,10 +54,6 @@ export default createStore({
     }
   },
   actions: {
-    async getTemperature({commit}, id) {
-      
-      console.log(celsiusToFahrenheit(tmp))
-    },
     async getCitiesPair({state, commit}) {
       if (!state.cities) {
         commit('updateCities', await fetch(`/city.list.min.json`).then(res => res.json()))
@@ -89,12 +85,11 @@ export default createStore({
         } else {
           commit('setHomeTitle', 'You LOST!')
         }
+        commit('pushHistory', state.currentPair)
         commit('setAnswerIsDone', true)
-        // commit('pushHistory', state.currentPair)
       }
     },
     nextStep({commit, dispatch}) {
-      console.log('next')
       commit('refreshStep')
       dispatch('getCitiesPair')
     }
