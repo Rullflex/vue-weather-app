@@ -53,7 +53,7 @@ export default createStore({
     },
     async getCitiesPair({state, commit}) {
       if (!state.cities) {
-        commit('updateCities', await fetch(`/city.list.min.json`).then(res => res.json()))
+        commit('updateCities', await fetch(`https://hafizovtimur.ru/city.list.min.json`).then(res => res.json()))
       }
       const pair = [
         state.cities[getRandomPosition()], 
