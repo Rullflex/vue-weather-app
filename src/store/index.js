@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { celsiusToFahrenheit, getTemperature } from '../utils'
+import { celsiusToFahrenheit, getTemperature, fahrenheitToCelsious } from '../utils'
 
 
 
@@ -13,7 +13,6 @@ export default createStore({
     answerIsDone: false,
 
     currentPair: [],
-    currentTemp: [],
 
     history: [],
 
@@ -27,6 +26,14 @@ export default createStore({
     },
     updateUnit(state, unit) {
       state.activeUnit = unit
+      if (unit === 'F') {
+        state.currentPair[0].temp = celsiusToFahrenheit(state.currentPair[0].temp) 
+        state.currentPair[1].temp = celsiusToFahrenheit(state.currentPair[1].temp) 
+      } else {
+        state.currentPair[0].temp = fahrenheitToCelsious(state.currentPair[0].temp) 
+        state.currentPair[1].temp = fahrenheitToCelsious(state.currentPair[1].temp) 
+      }
+      
     },
     updateCities(state, json) {
       state.cities = json
@@ -59,8 +66,8 @@ export default createStore({
         state.cities[getRandomPosition()], 
         state.cities[getRandomPosition()]
       ]
-      pair[0].temp = Math.round(await getTemperature(pair[0].id))
-      pair[1].temp = Math.round(await getTemperature(pair[1].id))
+      pair[0].temp = (await getTemperature(pair[0].id)).toFixed(2)
+      pair[1].temp = (await getTemperature(pair[1].id)).toFixed(2)
       
       commit('setCurrentPair', pair)
 

@@ -1,7 +1,7 @@
 <template>
   <a href="#" class="card" @click.prevent="$emit('onClick', id)">
     <p class="card__title">{{ city }}</p>
-    <div class="card__units">{{ unit }}</div>
+    <div v-bind:class="{'hidden': isHidden}" class="card__units">{{ unit }}</div>
   </a>
 </template>
 
@@ -17,6 +17,7 @@ export default {
     id: Number,
     city: String,
     unit: String,
+    isHidden: Boolean
   },
 }
 </script>
@@ -46,6 +47,9 @@ export default {
   &__units {
     position: absolute;
     bottom: 15px;
+  }
+  .hidden {
+    display: none;
   }
 }
 </style>

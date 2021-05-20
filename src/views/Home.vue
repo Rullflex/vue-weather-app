@@ -7,17 +7,19 @@
         v-bind:id="0"
         v-bind:city="currentPair[0].name + ', ' + currentPair[0].country" 
         v-bind:unit="currentPair[0].temp + ' ' + activeUnit"
-        v-on:onClick="checkCard"/>
+        v-on:onClick="checkCard"
+        v-bind:isHidden="!answerIsDone"/>
       <city-card 
         v-bind:id="1"
         v-bind:city="currentPair[1].name + ', ' + currentPair[1].country" 
         v-bind:unit="currentPair[1].temp + ' ' + activeUnit"
-        v-on:onClick="checkCard"/>
+        v-on:onClick="checkCard"
+        v-bind:isHidden="!answerIsDone"/>
     </div>
     <p v-else>loading...</p>
     <button 
       class="home__btn" 
-      v-bind:class="{'home__btn--hidden': !answerIsDone}"
+      v-bind:class="{'hidden': !answerIsDone}"
       @click="nextStep"
       >Next cities</button>
   </div>
@@ -74,9 +76,10 @@ export default {
   }
   &__btn {
     margin-top: 30px;
-    &--hidden {
+    
+  }
+  .hidden {
       display: none;
-    }
   }
 }
 </style>
