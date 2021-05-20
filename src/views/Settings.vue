@@ -30,16 +30,17 @@
         class="settings__history-item"
         v-for="(value, index) of history"
         v-bind:key="index"
+        v-bind:data-success="value.isSuccess ? '&#10003;' : '&#10007;'"
         >
         <city-card 
-        v-bind:city="value[0].name + ', ' + value[0].country" 
-        v-bind:unit="value[0].temp"
-        v-bind:isHidden="false"/>
-      <city-card 
-        v-bind:city="value[1].name + ', ' + value[1].country" 
-        v-bind:unit="value[1].temp"
-        v-bind:isHidden="false"/>
-        </li>
+          v-bind:city="value[0].name + ', ' + value[0].country" 
+          v-bind:unit="value[0].temp"
+          v-bind:isHidden="false"/>
+        <city-card 
+          v-bind:city="value[1].name + ', ' + value[1].country" 
+          v-bind:unit="value[1].temp"
+          v-bind:isHidden="false"/>
+          </li>
       
     </ul>
     <p v-else>empty</p>
@@ -77,6 +78,7 @@ export default {
       margin-bottom: 30px;
     }
     &__history {
+      padding-left: 0;
       margin: 0 auto;
       width: 280px;
       &-item {
@@ -84,7 +86,18 @@ export default {
         justify-content: space-between;
         width: 100%;
 
+        pointer-events: none;
+
         margin-bottom: 30px;
+        position: relative;
+        &::after {
+          content: attr(data-success);
+          font-size: 30px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: -70px;
+        }
       }
 
     }

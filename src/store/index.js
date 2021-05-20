@@ -41,7 +41,9 @@ export default createStore({
     setCurrentPair(state, pair) {
       state.currentPair = pair
     },
-    pushHistory(state, pair) {
+    pushHistory(state, {pair, isSuccess}) {
+      pair.isSuccess = isSuccess
+      console.log(pair)
       state.history = [...state.history, pair]
     },
     setAnswerIsDone(state, bool) {
@@ -85,7 +87,7 @@ export default createStore({
         } else {
           commit('setHomeTitle', 'You LOST!')
         }
-        commit('pushHistory', state.currentPair)
+        commit('pushHistory', {pair: state.currentPair, isSuccess: isHigher})
         commit('setAnswerIsDone', true)
       }
     },
